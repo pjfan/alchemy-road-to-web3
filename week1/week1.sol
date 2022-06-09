@@ -6,20 +6,21 @@ import "@openzeppelin/contracts@4.6.0/token/ERC721/extensions/ERC721Enumerable.s
 import "@openzeppelin/contracts@4.6.0/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts@4.6.0/utils/Counters.sol";
 
-contract Alchemy is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract Alchemy is ERC721, ERC721Enumerable, ERC721URIStorage {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
     uint256 MAX_SUPPLY = 100000;
 
-    uint256 public maxMint = 5;
+    // Challenge: Set MAX_MINT per address to 5.
+    uint256 public MAX_MINT = 5;
     mapping (address => uint) public nftsMinted;
 
     constructor() ERC721("Alchemy", "ALCH") {}
 
     function safeMint(address to, string memory uri) public {
         require(_tokenIdCounter.current() <= MAX_SUPPLY, "I'm sorry we reached the cap");
-        require(nftsMinted[msg.sender] < maxMint, "Cannot mint more than 5 NFTs.");
+        require(nftsMinted[msg.sender] < MAX_MINT, "Cannot mint more than 5 NFTs.");
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
