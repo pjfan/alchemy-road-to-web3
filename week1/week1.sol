@@ -4,21 +4,27 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts@4.6.0/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts@4.6.0/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts@4.6.0/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts@4.6.0/access/Ownable.sol";
 import "@openzeppelin/contracts@4.6.0/utils/Counters.sol";
 
 contract Alchemy is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
+    uint256 MAX_SUPPLY = 100000;
+
+    uint256 public maxMint = 5;
+    mapping (address => uint) public nftsMinted;
 
     constructor() ERC721("Alchemy", "ALCH") {}
 
-    function safeMint(address to, string memory uri) public onlyOwner {
+    function safeMint(address to, string memory uri) public {
+        require(_tokenIdCounter.current() <= MAX_SUPPLY, "I'm sorry we reached the cap");
+        require(nftsMinted[msg.sender] < maxMint, "Cannot mint more than 5 NFTs.");
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
+        nftsMinted[msg.sender]++;
     }
 
     // The following functions are overrides required by Solidity.
