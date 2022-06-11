@@ -20,3 +20,6 @@ npx hardhat compile
 npx hardhat run scripts/deploy.js --network mumbai
 npx hardhat verify --network mumbai YOUR_SMARTCONTRACT_ADDRESS
 ```
+
+# Notes
+Do not use this for production usecases. Randomness functions implemented are not truly random.
