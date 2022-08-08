@@ -26,3 +26,19 @@ Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&ut
 
 # Alchemy Road-To-Web3 - Week 4
 Finished development tutorial on 6/1/2022.
+
+Finished challenge #1 8/8/2022.
+
+Left pagination challenge (challenge #2) unfinished for now to move onto other challenges.
+
+# Setup
+```
+npm install
+```
+
+Fill in .env file with appropriate values.
+
+# Run dev
+```
+npm run dev
+```
